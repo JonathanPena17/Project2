@@ -1,3 +1,6 @@
+import java.util.Arrays;
+import java.util.EmptyStackException;
+
 /** A class of stacks whose entries are stored in an array. */
 public final class ResizeableArrayStack<T> implements StackInterface<T>
 {
