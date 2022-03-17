@@ -1,5 +1,5 @@
 /** A class of stacks whose entries are stored in an array. */
-public final class ArrayStack<T> implements StackInterface<T>
+public final class ResizeableArrayStack<T> implements StackInterface<T>
 {
     private T[] stack;    // Array of stack entries
     private int topIndex; // Index of top entry
@@ -7,12 +7,12 @@ public final class ArrayStack<T> implements StackInterface<T>
     private static final int DEFAULT_CAPACITY = 50;
     private static final int MAX_CAPACITY = 10000;
   
-    public ArrayStack()
+    public ResizeableArrayStack()
     {
       this(DEFAULT_CAPACITY);
     } // end default constructor
   
-    public ArrayStack(int initialCapacity)
+    public ResizeableArrayStack(int initialCapacity)
     {
         integrityOK = false;
         checkCapacity(initialCapacity);
@@ -75,4 +75,36 @@ public final class ArrayStack<T> implements StackInterface<T>
         } // end while
         //Assertion: topIndex is -1
     } // end clear
+    
+     /**
+     * Ensures array is not out of bounds
+     */
+    private void checkIntegrity()
+    {
+        if(!integrityOK)
+            throw new SecurityException("ArrayList Object is corrupt.");
+    }
+
+    /**
+     * Ensures array has not exceeded maximum capacity
+     */
+    private void checkCapacity()
+    {
+        if(topIndex > MAX_CAPACITY)
+            throw new ArrayIndexOutOfBoundsException("Array capacity has exceeded maximum capacity.");
+    }
+    
+    /**
+     * If stack has reached capacity, this function doubles the capacity
+     */
+    private void ensureCapacity()
+    {
+        if (topIndex >= stack.length - 1)
+        {
+            int newLength = 2 * stack.length;
+            checkCapacity();
+            stack = Arrays.copyOf(stack, newLength);
+        }
+    }
+
 } // end ArrayStack
