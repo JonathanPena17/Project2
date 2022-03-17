@@ -4,7 +4,7 @@ public class LinkedStack<T> implements StackInterface<T>
     
     public LinkedStack()
     {
-        topNode = nulll;
+        topNode = null;
     } //end default constructor
 
     // implementations of the stack operations 
