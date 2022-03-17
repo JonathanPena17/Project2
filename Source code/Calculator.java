@@ -1,6 +1,24 @@
 public class Calculator 
 {
-    static String convertToPostfix(infix)
+    public static void main(String args[])
+    {
+        
+        /**
+         * This block tests the implementations convertToPostfix(String) and evaluatePostfix(String)
+         */
+        String inFixString = "A*B/(C-A)+D*E";
+        System.out.println("\n************* DEMO *************\n\n");
+        System.out.println("To demonstrate our linked and resizable array stacks we will convert an infix expression to postfix and evaluate it.");
+        System.out.println("\n\tInfix expression: " + inFixString);
+        System.out.println("\n(Task 2) We will now pass our infix string to our infix to postfix converter.");
+        String postFix = convertToPostfix(inFixString);
+        System.out.println("\n\tPostfix Expression: " + postFix);
+        System.out.println("\n(Task 5) Now we will evaluate the postfix expression assuming all the values are equal to what task 4 stated in the project description.");
+        System.out.println("\n\tThe value of the postfix expression is: " + evaluatePostfix(postFix));
+        System.out.println("\n\n");
+        
+    }
+    static String convertToPostfix(String anEntry)
     {
     // Converts an infix expression to an equivalent postfix expression. 
     operatorStack = a new empty stack
@@ -53,6 +71,7 @@ public class Calculator
     while (postfix has characters left to parse) 
     {
     nextCharacter = next nonblank character of postfix 
+    
         switch (nextCharacter)
         {
           case variable:
