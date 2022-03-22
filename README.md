@@ -8,6 +8,6 @@ Jonathan Pena : Completed Excel sheet, LinkedStack.java, ResizeableArrayStack.ja
 
 Phu Truong: Completed:  StackInterface.java, Javadocs, Video
 
-Javadoc Link:
+Javadoc Link: https://github.com/JonathanPena17/Project2_CS2400/tree/main/Javadocs
 
 Screencast Link:
