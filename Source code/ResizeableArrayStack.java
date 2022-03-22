@@ -1,102 +1,50 @@
 import java.util.Arrays;
 import java.util.EmptyStackException;
 
-/** A class of stacks whose entries are stored in an array. */
-public final class ResizeableArrayStack<T> implements StackInterface<T>
+public class ResizeableArrayStack<T> implements StackInterface<T>
 {
-    private T[] stack;    // Array of stack entries
-    private int topIndex; // Index of top entry
+
+    private T[] stack;
+    private int topIndex;
     private boolean integrityOK = false;
     private static final int DEFAULT_CAPACITY = 50;
     private static final int MAX_CAPACITY = 10000;
-  
+
+    /** Constructor of an stack with default capacity */
     public ResizeableArrayStack()
     {
-      this(DEFAULT_CAPACITY);
-    } // end default constructor
-  
+        this(DEFAULT_CAPACITY);
+    }
+
+    /**
+     * Constructor of a stack with a predefined capacity
+     * @param initialCapacity the capacity
+     */
     public ResizeableArrayStack(int initialCapacity)
     {
         integrityOK = false;
-        checkCapacity(initialCapacity);
-      
-        // The cast is safe because the new array contains null entries
+        checkCapacity();
+
         @SuppressWarnings("unchecked")
         T[] tempStack = (T[])new Object[initialCapacity];
         stack = tempStack;
         topIndex = -1;
         integrityOK = true;
-    } // end constructor
-  
-   //  < Implementations of the stack operations go here. >
-    public void push(T newEntry)
-    {
-        checkInyegrity();
-        ensureCapacity();
-        stack[topIndex + 1] = newEntry;
-        topIndex++;
-    } // end push
-    
-    public T pop()
-    {
-        checkIntegrity();
-        if (isEmpty())
-            throw new EmptyStackException();
-        else
-        {
-            T top = stack[topIndex];
-            stack[topIndex] = null;
-            topIndex--;
-            return top;
-        } // end if
-    } // end pop
-
-    public T peek()
-    {
-       checkIntegrity();
-       if (isEmpty())
-          throw new EmptyStackException();
-       else
-          return stack[topIndex];
-    } // end peek
-
-    public boolean isEmpty()
-    {
-        return topIndex < 0;
-    } // end isEmpty
-    
-    public void clear()
-    {
-        checkIntegrity();
-      
-        // Remove references to the objects in the stack,
-        // but do not deallocate the array
-        while (topIndex > -1)
-        {
-            stack[topIndex] = null;
-            topIndex--;
-        } // end while
-        //Assertion: topIndex is -1
-    } // end clear
-    
-     /**
-     * Ensures array is not out of bounds
-     */
-    private void checkIntegrity()
-    {
-        if(!integrityOK)
-            throw new SecurityException("ArrayList Object is corrupt.");
     }
 
     /**
-     * Ensures array has not exceeded maximum capacity
+     * Puts a new object on top of the stack
+     * @param newEntry the object to be pushed
      */
-    private void checkCapacity()
+    @Override
+    public void push(T newEntry) 
     {
-        if(topIndex > MAX_CAPACITY)
-            throw new ArrayIndexOutOfBoundsException("Array capacity has exceeded maximum capacity.");
-    }
-    
+        checkIntegrity();
+        ensureCapacity();
+        stack[topIndex + 1] = newEntry;
+        topIndex++;
+    }//end push
+
     /**
      * If stack has reached capacity, this function doubles the capacity
      */
@@ -108,6 +56,81 @@ public final class ResizeableArrayStack<T> implements StackInterface<T>
             checkCapacity();
             stack = Arrays.copyOf(stack, newLength);
         }
+    }//end ensureCapacity
+
+    /**
+     * Removes the top object of the stack and returns it
+     * @return the object removed
+     */
+    @Override
+    public T pop() 
+    {
+        checkIntegrity();
+        if (isEmpty())
+            throw new EmptyStackException();
+        else
+        {
+            T top = stack[topIndex];
+            stack[topIndex] = null;
+            topIndex--;
+            return top;
+        }
+    }//end pop
+
+    /**
+     * Returns the object on top of the stack without removing it
+     * @return the object on top of the stack
+     */
+    @Override
+    public T peek() 
+    {
+        checkIntegrity();
+        if(isEmpty())
+            throw new EmptyStackException();
+        else
+            return stack[topIndex];
+    }//end peek
+
+    /**
+     * checks if the stack is empty
+     * @return returns true if stack is empty
+     */
+    @Override
+    public boolean isEmpty() 
+    {
+        return topIndex < 0;
+    }//end isEmpty
+
+    /**
+     * Empties the stack of all elements
+     */
+    @Override
+    public void clear() 
+    {
+        checkIntegrity();
+
+        while (topIndex > -1)
+        {
+            stack[topIndex] = null;
+            topIndex--;
+        }
+    }//end clear
+
+    /**
+     * Ensures array is not out of bounds
+     */
+    private void checkIntegrity()
+    {
+        if(!integrityOK)
+            throw new SecurityException("ArrayList Object is corrupt.");
     }
 
-} // end ArrayStack
+    /**
+     * Ensurs array has not exceeded maximum capacity
+     */
+    private void checkCapacity()
+    {
+        if(topIndex > MAX_CAPACITY)
+            throw new ArrayIndexOutOfBoundsException("Array capacity has exceeded maximum capacity.");
+    }
+}
