@@ -1,24 +1,19 @@
-/**
- * A driver class to show our convertToPostFix and evaluatePostFix methods
- * They each use stacks to solve the problems of converting from infix to postfix
- * and to then evaluate the converted postfix expression
- * The convert method makes use of a linked stack
- * The evaluate method makes use of a resizable array stack
- */
-public class Calculator {
-    public static void main(String args[]){
+public class Calculator 
+{
+    public static void main(String args[])
+    {
         
         /**
-         * This block tests the implementations convertToPostfix(String) and evaluatePostfix(String)
+         * This tests the implementations convertToPostfix(String) and evaluatePostfix(String)
          */
         String inFixString = "A*B/(C-A)+D*E";
-        System.out.println("\n************* DEMO *************\n\n");
-        System.out.println("To demonstrate our linked and resizable array stacks we will convert an infix expression to postfix and evaluate it.");
-        System.out.println("\n\tInfix expression: " + inFixString);
-        System.out.println("\n(Task 2) We will now pass our infix string to our infix to postfix converter.");
         String postFix = convertToPostfix(inFixString);
+
+        System.out.println("To display our Linked and Resizable Array Stacks, my team will convert the given infix expression to postfix and evaluate it.");
+        System.out.println("\n\t Given Infix expression: " + inFixString);
+        System.out.println("\n We will now pass our infix string to our infix to the postfix converter.");
         System.out.println("\n\tPostfix Expression: " + postFix);
-        System.out.println("\n(Task 5) Now we will evaluate the postfix expression assuming all the values are equal to what task 4 stated in the project description.");
+        System.out.println("\n We will now evaluate the postfix expression, assuming a= 2, b= 3, c= 4, d= 5, and e= 6.");
         System.out.println("\n\tThe value of the postfix expression is: " + evaluatePostfix(postFix));
         System.out.println("\n\n");
         
@@ -30,26 +25,29 @@ public class Calculator {
      * @return a postfix expression represented as a String
      */
     static String convertToPostfix(String anEntry){
-        String output = "";//the Postfix expression that will be returned
+        String output = ""; //the Postfix expression that will be returned
 
-        LinkedStack<Character> stack = new LinkedStack<>();//a stack to hold operands
+        LinkedStack<Character> stack = new LinkedStack<>(); //a stack to hold operands
 
-        for(int i = 0; i < anEntry.length(); i++){//scan the input letter by letter
-            char ch = anEntry.charAt(i);//the current letter (char) being scanned
+        for(int i = 0; i < anEntry.length(); i++)//scan the input letter by letter
+        {
+            char ch = anEntry.charAt(i);    //the current letter (char) being scanned
 
-            if(Character.isLetterOrDigit(ch)) //if the current letter is a variable (not an operand), simply add it to the output
+            if(Character.isLetterOrDigit(ch))   //if the current letter is a variable (not an operand), simply add it to the output
                 output += ch;
             
             else if (ch == '(') //if the current letter is a '(' push it to the stack, this will start building out the sequence of operands in the Postfix
                 stack.push(ch);
 
-            else if (ch == ')'){ //if the current letter is a ')', keep removing operands from the stack until the parantheses is closed
+            else if (ch == ')') //if the current letter is a ')', keep removing operands from the stack until the parantheses is closed
+            { 
                 while(!stack.isEmpty() && stack.peek() != '(')//keep popping until we reach a '('
                     output += stack.pop();
                 
                 stack.pop();//once we reach the '(', pop it, thereby closing the parentheses
-                } 
-            else{
+            } 
+            else
+            {
                 //if the current letter is not a letter, number or parentheses, it must be an operand.
                 while(!stack.isEmpty() && Precedence(ch) <= Precedence(stack.peek()))//keep removing operands from the top of the stack until we reach an operand that -
                                                                                      //is of HIGHER precedence than the current letter.  
@@ -60,9 +58,6 @@ public class Calculator {
             }
         }
 
-        //finally, after the entire string has been scanned, we move everything from the stack into our output
-        //now all of the operands are at the end of the Postfix expression
-        //with the exception that lower order operands have already been added to our output.
         while(!stack.isEmpty()){
             if(stack.peek() == '(') //if we find an extra '(', this means the expression is invalid since that parentheses cannot be closed
                 return "Error, input was not a valid infix expression";
@@ -73,32 +68,16 @@ public class Calculator {
 
     }
 
-    /**
-     * Helper method for determining precedence of operands.
-     * @param x the operand
-     * @return the precidence of the operand
-     */
-    static int Precedence(char x){
-        switch(x){
-            case '+': case '-':
-                return 1;
-            case '*': case '/':
-                return 2;
-            case '^':
-                return 3;
-            default:
-                return -1;
-        }
-    }
     
     /**
      * Evaluate a postfix expression with pre-defined variable values 'A' - 'E'
      * @param postfix a postfix expression
      * @return the numerical value of the evaluated expression
      */
-    static double evaluatePostfix(String postfix){
+    static double evaluatePostfix(String postfix)
+    {
         // This stack will hold the intermediary answers
-        ResizableArrayStack<Double> stack = new ResizableArrayStack<>();
+        ResizeableArrayStack<Double> stack = new ResizeableArrayStack<>();
 
         for(int i = 0; i < postfix.length(); i++){
             // to parse the string that we pass in
@@ -106,7 +85,8 @@ public class Calculator {
 
             // 
             if(Character.isLetter(ch))
-                switch(ch){
+                switch(ch)
+                {
                     case 'A':
                         stack.push((double)2);
                         break;
@@ -125,10 +105,12 @@ public class Calculator {
                     default:
                         break;
                 }
+                
             else{
                 double x = stack.pop();
                 double y = stack.pop();
-                switch(ch){
+                switch(ch)
+                {
                     case '+':
                         stack.push(y+x);
                         break;
@@ -144,9 +126,27 @@ public class Calculator {
                     case '^':
                         stack.push(Math.pow(y, x));
                         break;
-                    }
+                }
                 }
         }
     return stack.pop();
     }
-}
+    
+    /**
+     * Helper method for determining precedence of operands.
+     * @param x the operand
+     * @return the precidence of the operand
+     */
+    static int Precedence(char x){
+        switch(x){
+            case '+': case '-':
+                return 1;
+            case '*': case '/':
+                return 2;
+            case '^':
+                return 3;
+            default:
+                return -1;
+        }
+    }
+}//end Calculator
