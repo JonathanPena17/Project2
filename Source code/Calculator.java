@@ -6,7 +6,7 @@ public class Calculator
         /**
          * This tests the implementations convertToPostfix(String) and evaluatePostfix(String)
          */
-        String inFixString = "A*B/(C-A)+D*E";
+        String inFixString = "a*b/(c-a)+d*e";
         String postFix = convertToPostfix(inFixString);
 
         System.out.println("To display our Linked and Resizable Array Stacks, my team will convert the given infix expression to postfix and evaluate it.");
@@ -70,7 +70,7 @@ public class Calculator
 
     
     /**
-     * Evaluate a postfix expression with pre-defined variable values 'A' - 'E'
+     * Evaluate a postfix expression with pre-defined variable values 'a' - 'e'
      * @param postfix a postfix expression
      * @return the numerical value of the evaluated expression
      */
@@ -87,19 +87,19 @@ public class Calculator
             if(Character.isLetter(ch))
                 switch(ch)
                 {
-                    case 'A':
+                    case 'a':
                         stack.push((double)2);
                         break;
-                    case 'B':
+                    case 'b':
                         stack.push((double)3);
                         break;
-                    case 'C':
+                    case 'c':
                         stack.push((double)4);
                         break;
-                    case 'D':
+                    case 'd':
                         stack.push((double)5);
                         break;
-                    case 'E':
+                    case 'e':
                         stack.push((double)6);
                         break;
                     default:
