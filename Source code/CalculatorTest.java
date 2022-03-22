@@ -1,36 +1,20 @@
-import junit.framework.TestCase;
-import static org.junit.jupiter.api.Assertions.*;
-
-public class CalculatorTest extends TestCase 
+public class CalculatorTest
 {
-   public void testEvaluateMethod(){
-        // Arrange
-        String testString = "ab*ca-/de*+";
-        double result;
+     public static void main (String[] args)
+     {
+          String testString = "ab*ca-/de*+";
+          double result;
+          result = Calculator.evaluatePostfix(testString);
+          double expectedResult = 33;
+          System.out.println("The expected result is "+ expectedResult);
+          System.out.println("The answer we got is " + result);
 
-        // Act
-        result = Calculator.evaluatePostfix(testString);
-        double expectedResult = 33;
+          String anotherTestString = "a*b/(c-a)+d*e";
+          String result1;
+          result1 = Calculator.convertToPostfix(anotherTestString);
+          String expectedResult1 = "ab*ca-/de*+";
+          System.out.println("The expected result is "+ expectedResult1);
+          System.out.println("The answer we got is " + result1);
+     }
 
-        // Assert
-        assertEquals(result, expectedResult);
-    }
-
-    /**a public test method for the convert method in calculator class
-     * used assertEquals and passes in the expected string and the resulting string
-     * to make sure that they are equivalent to each other
-     */
-    public void testConfigMethod()
-    {
-       // Arrange
-            String anotherTestString = "a*b/(c-a)+d*e";
-            String result;
-
-       // Act
-            result = Calculator.convertToPostfix(anotherTestString);
-            String expectedResult = "ab*ca-/de*+";
-
-       // Assert
-            assertEquals(result, expectedResult);
-    }
 }//end CalculatorTest
