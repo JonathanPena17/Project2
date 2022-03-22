@@ -1,21 +1,15 @@
 import junit.framework.TestCase;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CalculatorTest extends Calculator
+public class CalculatorTest extends TestCase 
 {
-     /**a public unt test class for calculator
-     * makes sure that evaluatepostfix method functions properly
-     * calls asserts equals and passes the expected and the actual to verify that they match
-     * **/
-   public void testEvaluateMethod()
-   {
+   public void testEvaluateMethod(){
         // Arrange
         String testString = "AB*CA-/DE*+";
         double result;
-        Calculator testCalc = new Calculator();
 
         // Act
-        result = testCalc.evaluatePostfix(testString);
+        result = Calculator.evaluatePostfix(testString);
         double expectedResult = 33;
 
         // Assert
@@ -31,10 +25,9 @@ public class CalculatorTest extends Calculator
        // Arrange
             String anotherTestString = "A*B/(C-A)+D*E";
             String result;
-            Calculator anotherTestCalc = new Calculator();
 
        // Act
-            result = anotherTestCalc.convertToPostfix(anotherTestString);
+            result = Calculator.convertToPostfix(anotherTestString);
             String expectedResult = "AB*CA-/DE*+";
 
        // Assert
