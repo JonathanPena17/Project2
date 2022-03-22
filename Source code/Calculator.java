@@ -24,7 +24,7 @@ public class Calculator
      * @param anEntry an infix expression represented as a String 
      * @return a postfix expression represented as a String
      */
-    static String convertToPostfix(String anEntry){
+    public static String convertToPostfix(String anEntry){
         String output = ""; //the Postfix expression that will be returned
 
         LinkedStack<Character> stack = new LinkedStack<>(); //a stack to hold operands
@@ -74,7 +74,7 @@ public class Calculator
      * @param postfix a postfix expression
      * @return the numerical value of the evaluated expression
      */
-    static double evaluatePostfix(String postfix)
+    public static double evaluatePostfix(String postfix)
     {
         // This stack will hold the intermediary answers
         ResizeableArrayStack<Double> stack = new ResizeableArrayStack<>();
@@ -137,7 +137,7 @@ public class Calculator
      * @param x the operand
      * @return the precidence of the operand
      */
-    static int Precedence(char x){
+    public static int Precedence(char x){
         switch(x){
             case '+': case '-':
                 return 1;
