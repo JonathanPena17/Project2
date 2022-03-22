@@ -1,85 +1,108 @@
-public class LinkedStack<T> implements StackInterface<T>
-{
-    private Node topNode; //refrences the first node in the chain
+import java.util.EmptyStackException;
+
+public class LinkedStack<T> implements StackInterface<T>{
     
-    public LinkedStack()
+    /**Constructor of an empty stack*/
+     public LinkedStack()
+     {
+        topNode = null;
+     }//end LinkedStack
+
+    /**
+     * Puts a new object on top of the stack
+     * @param newEntry the object to be pushed
+     */
+    @Override
+    public void push(T newEntry) 
+    {
+        Node newNode = new Node(newEntry, topNode);
+        topNode = newNode;
+    }//end push
+    
+
+    /**
+     * Removes the top object of the stack and returns it
+     * @return the object removed
+     */
+    @Override
+    public T pop() 
+    {
+        T top = peek();
+        topNode = topNode.getNextNode();
+
+        return top;
+    }//end pop
+
+    /**
+     * Returns the object on top of the stack without removing it
+     * @return the object on top of the stack
+     */
+    @Override
+    public T peek() 
+    {
+        if (isEmpty())
+            throw new EmptyStackException();
+        else    
+            return topNode.getData();
+    }//end peek
+
+    /**
+     * checks if the stack is empty
+     * @return returns true if stack is empty
+     */
+    @Override
+    public boolean isEmpty() 
+    {
+        if (topNode == null)
+            return true;
+        else
+            return false;
+    }//end isEmpty
+
+    /**
+     * Empties the stack of all elements
+     */
+    @Override
+    public void clear() 
     {
         topNode = null;
-    } //end default constructor
+    }//end clear
 
-    // implementations of the stack operations 
+    private Node topNode;
 
-    public void push(T newEntry)
+    /**
+     * Node class for implementing a linked list
+     */
+    private class Node 
     {
-      Node newNode = new Node(newEntry, topNode);
-      topNode = newNode;
-      //topNode = new Node(newEntry, topNode); // Alternate code
-    } // end push
+        private T data; //stores one  object
+        private Node next; 
+        //points to the "next" node.  initially points to null.  each time 1 element is added to the bag, a new Node is created to store the new element.
+        //this new node becomes the new "head" or first node in the chain.  The @next of this new node points to the previous "head", extending the chain
 
-    public T pop()
-    {
-   T top = peek();  // Might throw EmptyStackException
-   // Assertion: topNode != null
-   topNode = topNode.getNextNode();
-   return top;
-    } // end pop
+        private Node(T data){//constructor for a node
+            this(data, null);//constructor within a constructor (see next constructor)
+        }
 
-    public T peek()
-    {
-   if (isEmpty())
-      throw new EmptyStackException();
-   else
-      return topNode.getData();
-    } // end peek
+        private Node(T data, Node next){//constructor for a node that sets data and next simultaneously (this is odd but the class notes write it this way)
+            this.data = data;
+            this.next = next;
+        }
 
-   public boolean isEmpty()
-    {
-   return topNode == null;
-    } // end isEmpty
-
-    public void clear()
-    {
-   topNode = null;
-    } // end clear
-
-    private class node
-    {
-        //Constuctors
-        private T data;
-        private Node next;
-
-        private Node(T dataPortion)
-        {
-         this(dataPortion, null);
-        } //end constructor
-
-        private Node(T dataPortion, Node nextNode)
-        {
-         data = dataPortion;
-         next = nextNode;
-        }//end constructor
-
-        //Accessors and mutators methods: getData, setData, getNextNode, setNextNode
-        private T getData()
-        {
+        private T getData(){//returns the item stored in this node
             return data;
-        }//end getData
+        }
 
-        private void setData(T newData)
-        {
+        private void setData(T newData){//replaces the item stored in this node
             data = newData;
+        }
 
-        }//end setData
-
-        private Node getNextNode()
-        {
+        private Node getNextNode(){//returns the address of the next node
             return next;
-        }//end getNextNode
+        }
 
-        private void setNextNode(Node nextNode)
-        {
+        private void setNextNode(Node nextNode){//sets the address of the next node
             next = nextNode;
-        }//end setNextNode
-
-    } //end node  
+        }
+    }//End Node
 }//end LinkedStack
