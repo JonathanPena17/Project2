@@ -1,7 +1,11 @@
+//CS2400
+//Project 2
+//March 21, 2022
+//Jonathan Pena, Phu Truong
 /** An interface for the ADT stack. */
-public class Stackinterface<T>
+public interface StackInterface<T>
 {
-     /** Adds a new entry to the top of this stack.
+   /** Adds a new entry to the top of this stack.
        @param newEntry  An object to be added to the stack. */
    public void push(T newEntry);
   
@@ -21,4 +25,4 @@ public class Stackinterface<T>
   
    /** Removes all entries from this stack. */
    public void clear();
-}// end StackInterface
+} // end StackInterface
