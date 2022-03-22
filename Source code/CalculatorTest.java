@@ -5,7 +5,7 @@ public class CalculatorTest extends TestCase
 {
    public void testEvaluateMethod(){
         // Arrange
-        String testString = "AB*CA-/DE*+";
+        String testString = "ab*ca-/de*+";
         double result;
 
         // Act
@@ -23,12 +23,12 @@ public class CalculatorTest extends TestCase
     public void testConfigMethod()
     {
        // Arrange
-            String anotherTestString = "A*B/(C-A)+D*E";
+            String anotherTestString = "a*b/(c-a)+d*e";
             String result;
 
        // Act
             result = Calculator.convertToPostfix(anotherTestString);
-            String expectedResult = "AB*CA-/DE*+";
+            String expectedResult = "ab*ca-/de*+";
 
        // Assert
             assertEquals(result, expectedResult);
